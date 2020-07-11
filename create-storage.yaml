@@ -1,0 +1,33 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: aws-efss
+provisioner: lw-course/aws-efss
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: efs-wordpress
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "aws-efss"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: aws-efss
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: efs-mysql
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "aws-efss"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: aws-efss
